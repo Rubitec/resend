@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/resend/resend-go/v2"
+	"github.com/Rubitec/resend"
 )
 
 func withAttachments() {
@@ -23,7 +23,7 @@ func withAttachments() {
 		panic(err)
 	}
 
-	client := resend.NewClient(apiKey)
+	client := resend.NewClient(apiKey, nil)
 
 	// Create attachments objects
 	pdfAttachmentFromLocalFile := &resend.Attachment{

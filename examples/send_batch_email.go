@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/resend/resend-go/v2"
+	"github.com/Rubitec/resend"
 )
 
 func sendBatchEmails() {
@@ -12,7 +12,7 @@ func sendBatchEmails() {
 	// ctx := context.TODO()
 	apiKey := os.Getenv("RESEND_API_KEY")
 
-	client := resend.NewClient(apiKey)
+	client := resend.NewClient(apiKey, nil)
 
 	// Batch Send
 	var batchEmails = []*resend.SendEmailRequest{

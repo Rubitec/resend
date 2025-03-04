@@ -13,13 +13,13 @@ import (
 )
 
 func TestResend(t *testing.T) {
-	client := NewClient("123")
+	client := NewClient("123", nil)
 	assert.NotNil(t, client)
 }
 
 func TestResendRequestHeaders(t *testing.T) {
 	ctx := context.TODO()
-	client := NewClient("123")
+	client := NewClient("123", nil)
 	params := &SendEmailRequest{
 		To: []string{"email@example.com", "email2@example.com"},
 	}
@@ -35,7 +35,7 @@ func TestResendRequestHeaders(t *testing.T) {
 }
 
 func TestResendRequestShouldReturnErrorIfContextIsCancelled(t *testing.T) {
-	client := NewClient("123")
+	client := NewClient("123", nil)
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
 	req, err := client.NewRequest(ctx, "POST", "/", nil)

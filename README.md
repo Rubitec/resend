@@ -10,7 +10,7 @@
 To install the Go SDK, simply execute the following command on a terminal:
 
 ```
-go get github.com/resend/resend-go/v2
+go get github.com/Rubitec/resend
 ```
 
 ## Setup
@@ -22,13 +22,13 @@ First, you need to get an API key, which is available in the [Resend Dashboard](
 ```go
 import (
     "fmt"
-    "github.com/resend/resend-go/v2"
+    "github.com/Rubitec/resend"
 )
 
 func main() {
     apiKey := "re_123"
 
-    client := resend.NewClient(apiKey)
+    client := resend.NewClient(apiKey, nil)
 
     params := &resend.SendEmailRequest{
         To:      []string{"to@example", "you@example.com"},

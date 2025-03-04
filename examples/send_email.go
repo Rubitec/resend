@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/resend/resend-go/v2"
+	"github.com/Rubitec/resend"
 )
 
 func sendEmailExample() {
 	ctx := context.TODO()
 	apiKey := os.Getenv("RESEND_API_KEY")
 
-	client := resend.NewClient(apiKey)
+	client := resend.NewClient(apiKey, nil)
 
 	// Send
 	params := &resend.SendEmailRequest{

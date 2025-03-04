@@ -22,7 +22,7 @@ var (
 func setup() {
 	mux = http.NewServeMux()
 	server = httptest.NewServer(mux)
-	client = NewClient("")
+	client = NewClient("", nil)
 	url, _ := url.Parse(server.URL)
 	client.BaseURL = url
 }

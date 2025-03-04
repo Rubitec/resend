@@ -1,4 +1,4 @@
-module github.com/resend/resend-go/v2
+module github.com/Rubitec/resend
 
 go 1.23
 
