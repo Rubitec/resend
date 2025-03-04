@@ -52,15 +52,19 @@ type Client struct {
 }
 
 // NewClient is the default client constructor
-func NewClient(apiKey string) *Client {
+func NewClient(apiKey string, customBaseURL *string) *Client {
 	key := strings.Trim(strings.TrimSpace(apiKey), "'")
-	return NewCustomClient(defaultHTTPClient, key)
+	return NewCustomClient(defaultHTTPClient, key, customBaseURL)
 }
 
 // NewCustomClient builds a new Resend API client, using a provided Http client.
-func NewCustomClient(httpClient *http.Client, apiKey string) *Client {
+func NewCustomClient(httpClient *http.Client, apiKey string, customBaseURL *string) *Client {
 	if httpClient == nil {
 		httpClient = defaultHTTPClient
+	}
+
+	if customBaseURL != nil {
+		defaultBaseURL = *customBaseURL
 	}
 
 	baseURL, _ := url.Parse(defaultBaseURL)
