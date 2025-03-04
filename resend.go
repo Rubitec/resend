@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -53,22 +52,23 @@ type Client struct {
 }
 
 // NewClient is the default client constructor
-func NewClient(apiKey string, customBaseURL *string) *Client {
+func NewClient(apiKey string, customBaseURL string) *Client {
 	key := strings.Trim(strings.TrimSpace(apiKey), "'")
 	return NewCustomClient(defaultHTTPClient, key, customBaseURL)
 }
 
 // NewCustomClient builds a new Resend API client, using a provided Http client.
-func NewCustomClient(httpClient *http.Client, apiKey string, customBaseURL *string) *Client {
+func NewCustomClient(httpClient *http.Client, apiKey string, customBaseURL string) *Client {
 	if httpClient == nil {
 		httpClient = defaultHTTPClient
 	}
 
-	if customBaseURL != nil {
-		defaultBaseURL = *customBaseURL
+	var baseURL *url.URL
+	if customBaseURL != "" {
+		baseURL, _ = url.Parse(customBaseURL)
+	} else {
+		baseURL, _ = url.Parse(defaultBaseURL)
 	}
-
-	baseURL, _ := url.Parse(defaultBaseURL)
 
 	c := &Client{client: httpClient, BaseURL: baseURL, UserAgent: userAgent}
 
@@ -92,7 +92,7 @@ func (c *Client) NewRequest(ctx context.Context, method, path string, params int
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(u.String())
+
 	var req *http.Request
 	req, err = http.NewRequestWithContext(ctx, method, u.String(), nil)
 	if err != nil {
