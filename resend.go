@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -91,7 +92,7 @@ func (c *Client) NewRequest(ctx context.Context, method, path string, params int
 	if err != nil {
 		return nil, err
 	}
-
+	fmt.Println(u.String())
 	var req *http.Request
 	req, err = http.NewRequestWithContext(ctx, method, u.String(), nil)
 	if err != nil {
